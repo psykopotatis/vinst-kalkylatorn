@@ -20,6 +20,8 @@
             $("#sliderStockTotal").val(sliderStockTotal);
             $("#amount").val(sliderStockPrice);
 
+            // TODO update on input change
+
             $("#slider").slider({
                 range: "min",
                 min: 0,
@@ -34,10 +36,10 @@
                     $("#sliderStockTotal").text(sliderStockTotal + " SEK");
 
                     const result = Math.round(sliderStockTotal - tot);
-                    $("#result").val(result + " SEK");
+                    $("#result").text(result + " SEK");
 
                     const percent = (result / tot) * 100;
-                    $("#percent").val(percent + "%");
+                    $("#percent").text(percent.toFixed(1) + "%");
 
 
                 }
@@ -55,7 +57,7 @@
 
 <p>
     <label for="price">Inköpskurs:</label>
-    <input type="text" id="price" value=8.23>
+    <input type="text" id="price" value=8.26>
 </p>
 
 <p>
@@ -71,19 +73,18 @@
 </p>
 
 <p>
-<div>Marknadsvärde</div>
-<div id="sliderStockTotal"></div>
-</p>
-
-
-<p>
-    <label for="result">Sedan köp:</label>
-    <input type="text" id="result" readonly>
+    <div>Marknadsvärde</div>
+    <div id="sliderStockTotal"></div>
 </p>
 
 <p>
-    <label for="percent">Sedan köp:</label>
-    <input type="text" id="percent" readonly>
+    <div>Sedan köp</div>
+    <div id="result"></div>
+</p>
+
+<p>
+    <div>Sedan köp</div>
+    <div id="percent"></div>
 </p>
 
 
