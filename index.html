@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>raket-kalkylator</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            const numberOfStocks = $("#stocks").val();
+            const price = $("#price").val();
+            const tot = numberOfStocks * price;
+            $("#tot").val(tot);
+
+            let sliderStockPrice = 7.9;
+            let sliderStockTotal = numberOfStocks * sliderStockPrice;
+            $("#sliderStockTotal").val(sliderStockTotal);
+            $("#amount").val(sliderStockPrice);
+
+            $("#slider").slider({
+                range: "min",
+                min: 0,
+                max: 100,
+                step: 0.1, // <-- new config
+                value: sliderStockPrice,
+                slide: function(event, ui) {
+                    $("#amount").val(ui.value);
+
+                    sliderStockPrice = ui.value;
+                    sliderStockTotal = Math.round(numberOfStocks * sliderStockPrice);
+                    $("#sliderStockTotal").text(sliderStockTotal + " SEK");
+
+                    const result = Math.round(sliderStockTotal - tot);
+                    $("#result").val(result + " SEK");
+
+                    const percent = (result / tot) * 100;
+                    $("#percent").val(percent + "%");
+
+
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<h1>Raket-kalkylatorn!</h1>
+<p>
+    <label for="stocks">Antal:</label>
+    <input type="text" id="stocks" value=1000>
+</p>
+
+<p>
+    <label for="price">Inköpskurs:</label>
+    <input type="text" id="price" value=8.23>
+</p>
+
+<p>
+    <label for="tot">Inköpsvärde:</label>
+    <input type="text" id="tot">
+</p>
+
+<div id="slider"></div>
+
+<p>
+    <label for="amount">Kursen:</label>
+    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+
+<p>
+<div>Marknadsvärde</div>
+<div id="sliderStockTotal"></div>
+</p>
+
+
+<p>
+    <label for="result">Sedan köp:</label>
+    <input type="text" id="result" readonly>
+</p>
+
+<p>
+    <label for="percent">Sedan köp:</label>
+    <input type="text" id="percent" readonly>
+</p>
+
+
+
+</body>
+</html>
