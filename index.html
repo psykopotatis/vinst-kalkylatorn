@@ -13,9 +13,9 @@
             const numberOfStocks = $("#stocks").val();
             const price = $("#price").val();
             const tot = numberOfStocks * price;
-            $("#tot").val(tot);
+            $("#tot").text(tot.toLocaleString("sv") + " SEK");
 
-            let sliderStockPrice = 7.9;
+            let sliderStockPrice = 7.97;
             let sliderStockTotal = numberOfStocks * sliderStockPrice;
             $("#sliderStockTotal").val(sliderStockTotal);
             $("#amount").val(sliderStockPrice);
@@ -26,17 +26,17 @@
                 range: "min",
                 min: 0,
                 max: 100,
-                step: 0.1, // <-- new config
+                step: 0.01, // <-- new config
                 value: sliderStockPrice,
                 slide: function(event, ui) {
                     $("#amount").val(ui.value);
 
                     sliderStockPrice = ui.value;
                     sliderStockTotal = Math.round(numberOfStocks * sliderStockPrice);
-                    $("#sliderStockTotal").text(sliderStockTotal + " SEK");
+                    $("#sliderStockTotal").text(sliderStockTotal.toLocaleString("sv") + " SEK");
 
                     const result = Math.round(sliderStockTotal - tot);
-                    $("#result").text(result + " SEK");
+                    $("#result").text(result.toLocaleString("sv") + " SEK");
 
                     const percent = (result / tot) * 100;
                     $("#percent").text(percent.toFixed(1) + "%");
@@ -52,7 +52,7 @@
 <h1>Raket-kalkylatorn!</h1>
 <p>
     <label for="stocks">Antal:</label>
-    <input type="text" id="stocks" value=1000>
+    <input type="text" id="stocks" value=45000>
 </p>
 
 <p>
@@ -61,8 +61,8 @@
 </p>
 
 <p>
-    <label for="tot">Inköpsvärde:</label>
-    <input type="text" id="tot">
+    <div>Inköpsvärde</div>
+    <div id="tot"></div>
 </p>
 
 <div id="slider"></div>
