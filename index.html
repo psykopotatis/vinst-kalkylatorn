@@ -17,7 +17,38 @@
 
     <link href="/main.css" rel="stylesheet">
     <script>
+        const toSwedish = function (txt) {
+            return txt.toLocaleString("sv") + " SEK";
+        };
+
+        const updateSharePrice = function (sharePrice) {
+            $("#sharePrice").text(toSwedish(sharePrice));
+        };
+
+        const updateMarketValue = function(marketValue) {
+            $("#marketValue").text(toSwedish(marketValue));
+        };
+
+        const updateSinceBuy = function(sinceBuy) {
+            $("#sinceBuy").text(toSwedish(sinceBuy));
+            if (sinceBuy > 0) {
+                $("#sinceBuy").removeClass("minus").addClass("plus");
+            } else {
+                $("#sinceBuy").removeClass("plus").addClass("minus");
+            }
+        };
+
+        const updateSinceBuyPercent = function(percent) {
+            $("#sinceBuyPercent").text(percent.toFixed(1) + "%");
+            if (percent > 0) {
+                $("#sinceBuyPercent").removeClass("minus").addClass("plus");
+            } else {
+                $("#sinceBuyPercent").removeClass("plus").addClass("minus");
+            }
+        };
+
         $(function() {
+
             const numberOfStocks = $("#stocks").val();
             const price = $("#price").val();
             const tot = numberOfStocks * price;
@@ -34,32 +65,17 @@
                 range: "min",
                 min: 0,
                 max: 100,
-                step: 0.01, // <-- new config
+                step: 0.01,
                 value: sliderStockPrice,
                 slide: function(event, ui) {
-                    $("#amount").text(ui.value.toLocaleString("sv") + " SEK");
+                    const marketValue = numberOfStocks * ui.value;
+                    const sinceBuy = marketValue - tot;
+                    const percent = (sinceBuy / tot) * 100;
 
-                    sliderStockPrice = ui.value;
-                    sliderStockTotal = Math.round(numberOfStocks * sliderStockPrice);
-                    $("#sliderStockTotal").text(sliderStockTotal.toLocaleString("sv") + " SEK");
-
-                    const result = Math.round(sliderStockTotal - tot);
-                    $("#result").text(result.toLocaleString("sv") + " SEK");
-                    if (result > 0) {
-                        $("#result").removeClass("minus").addClass("plus");
-                    } else {
-                        $("#result").removeClass("plus").addClass("minus");
-                    }
-
-                    const percent = (result / tot) * 100;
-                    $("#percent").text(percent.toFixed(1) + "%");
-                    if (percent > 0) {
-                        $("#percent").removeClass("minus").addClass("plus");
-                    } else {
-                        $("#percent").removeClass("plus").addClass("minus");
-                    }
-
-
+                    updateSharePrice(ui.value);
+                    updateMarketValue(marketValue);
+                    updateSinceBuy(sinceBuy);
+                    updateSinceBuyPercent(percent);
                 }
             });
         });
@@ -95,23 +111,23 @@
                 <div id="slider"></div>
 
                 <p>
-                <div>Kursen</div>
-                <div id="amount"></div>
+                <div>Kurs</div>
+                <div id="sharePrice"></div>
                 </p>
 
                 <p>
                 <div>Marknadsvärde</div>
-                <div id="sliderStockTotal"></div>
+                <div id="marketValue"></div>
                 </p>
 
                 <p>
                 <div>Sedan köp</div>
-                <div id="percent"></div>
+                <div id="sinceBuyPercent"></div>
                 </p>
 
                 <p>
                 <div>Sedan köp</div>
-                <div id="result"></div>
+                <div id="sinceBuy"></div>
                 </p>
 
             </div>
