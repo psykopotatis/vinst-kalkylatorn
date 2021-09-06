@@ -68,7 +68,7 @@
         };
 
         $(function() {
-            const sharePrice = 7.76;
+            let sharePrice = 7.76;
 
             $("#numberOfStocks, #purchasePrice").on("input", function() {
                 updateFields(sharePrice);
@@ -83,7 +83,8 @@
                 step: 0.01,
                 value: sharePrice,
                 slide: function(event, ui) {
-                    updateFields(ui.value);
+                    sharePrice = ui.value;
+                    updateFields(sharePrice);
                 }
             });
         });
@@ -99,7 +100,7 @@
 
         <div class="py-3 text-center">
             <h2>Klaria-kalkylatorn</h2>
-            <p class="lead">Kalkylera din vinst/förlust genom att dra i reglaget!</p>
+            <p class="lead">Kalkylera din vinst/förlust genom att dra i reglaget.</p>
         </div>
 
         <div class="row">
