@@ -7,5 +7,5 @@
 
 - Deploy to Surge
 
-<code>surge dist klaria.surge.sh</code>
+<code>surge dist vinstkalkylatorn.surge.sh</code>
 
