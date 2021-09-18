@@ -1,11 +1,12 @@
-# klaria-kalkylator
+# vinst-kalkylator
+Beräkna vinst/förlust med jquery slider
 
 
-- Run dev server
+```
+# Run dev server at http://localhost:8081
+python server.py
 
-<code>python server.py</code>
-
-- Deploy to Surge
-
-<code>surge dist vinstkalkylatorn.surge.sh</code>
+# Deploy to Surge
+surge dist vinstkalkylatorn.surge.sh
+```
 
