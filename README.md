@@ -7,6 +7,6 @@ Beräkna vinst/förlust med jquery slider
 python server.py
 
 # Deploy to Surge
-surge dist vinstkalkylatorn.surge.sh
+surge vinstkalkylatorn.surge.sh
 ```
 
