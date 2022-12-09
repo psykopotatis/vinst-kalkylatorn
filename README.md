@@ -7,6 +7,6 @@ Beräkna vinst/förlust med jquery slider
 python server.py
 
 # Deploy to Surge
-surge vinstkalkylatorn.surge.sh
+surge klaria.surge.sh
 ```
 
