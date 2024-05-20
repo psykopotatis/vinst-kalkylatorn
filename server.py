@@ -6,7 +6,7 @@ import SocketServer
 python server.py
 
 """
-PORT = 8081
+PORT = 8082
 
 Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
 
