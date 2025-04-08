@@ -11,11 +11,37 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 
     <!-- jQuery -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <link href="/css/main.css" rel="stylesheet">
+    <style>
+        /* Prevent text selection while dragging */
+        input[type="range"] {
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: none;
+        }
+        
+        /* Make the range input easier to grab on mobile */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #0d6efd;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #0d6efd;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
     <script>
         const updateFields = function (sharePrice) {
             const numberOfStocks = $("#numberOfStocks").val();
@@ -74,19 +100,12 @@
                 updateFields(sharePrice);
             });
 
-            updateFields(sharePrice);
-
-            $("#slider").slider({
-                range: "min",
-                min: 0,
-                max: 100,
-                step: 0.1,
-                value: sharePrice,
-                slide: function(event, ui) {
-                    sharePrice = ui.value;
-                    updateFields(sharePrice);
-                }
+            $("#priceSlider").on("input", function() {
+                sharePrice = parseFloat(this.value);
+                updateFields(sharePrice);
             });
+
+            updateFields(sharePrice);
         });
     </script>
 </head>
@@ -117,11 +136,10 @@
                 <div id="purchaseValue"></div>
                 </p>
 
-                <div id="slider"></div>
-
                 <p>
-                <div>Kurs</div>
-                <div id="sharePrice"></div>
+                    <label for="priceSlider" class="form-label">Kurs</label>
+                    <input type="range" class="form-range" id="priceSlider" min="0" max="100" step="0.1" value="2.77" inputmode="none">
+                    <div id="sharePrice"></div>
                 </p>
 
                 <p>
@@ -143,7 +161,6 @@
         </div>
     </main>
 </div>
-
 
 </body>
 </html>
